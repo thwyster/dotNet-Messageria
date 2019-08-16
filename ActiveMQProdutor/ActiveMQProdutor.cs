@@ -1,11 +1,16 @@
-﻿using Apache.NMS;
+﻿using ActiveMQ.Base;
+using Apache.NMS;
 using Apache.NMS.ActiveMQ;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 
-namespace ConsoleAPP
+namespace ActiveMQProdutor
 {
-    public class ActiveMQ
+    public class ActiveMQProdutor
     {
         private IConnection _conexao;
         private ISession _sessao;
@@ -52,40 +57,6 @@ namespace ConsoleAPP
                         Console.WriteLine($"{Thread.CurrentThread.Name} - Escrevendo na {FILA} => '{mensagem.Message}'");
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public void ConsumidorFila()
-        {
-            try
-            {
-                //Console.WriteLine("----------- CONSUMIDOR -----------");
-                Mensagem mensagem = null;
-                IDestination dest = _sessao.GetQueue(FILA);
-                using (IMessageConsumer consumer = _sessao.CreateConsumer(dest))
-                {
-                    IMessage message;
-                    while ((message = consumer.Receive(TimeSpan.FromMilliseconds(10))) != null)
-                    {
-                        //Thread.Sleep(100);
-
-                        var objectMessage = message as IObjectMessage;
-                        if (objectMessage != null)
-                        {
-                            mensagem = objectMessage.Body as Mensagem;
-                            if (mensagem != null)
-                                Console.WriteLine($"{Thread.CurrentThread.Name} - Lendo na {FILA} => '{mensagem.Message}'");
-                        }
-                        else
-                            Console.WriteLine("Object Message é NULO");
-                    }
-                }
-                if (mensagem == null)
-                    Console.WriteLine("Mensagem é nula");
             }
             catch (Exception ex)
             {

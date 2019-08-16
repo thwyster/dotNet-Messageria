@@ -25,8 +25,10 @@ namespace ConsoleAPP
                     //IniciaThreadConsumidor(activeMQ);
 
                     //Sem Threads
-                    activeMQ.Produtor();
-                    activeMQ.Consumidor();
+                    //activeMQ.ProdutorFila();
+                    //activeMQ.ConsumidorFila();
+
+                    activeMQ.ProdutorTopico();
                 }
 
                 activeMQ.FinalizaAMQ();
@@ -40,18 +42,33 @@ namespace ConsoleAPP
 
         public static void IniciaThreadProdutor(ActiveMQ activeMQ)
         {
-            ThreadStart tsProdutor = delegate { activeMQ.Produtor(); };
-            Thread threadProdutor = new Thread(tsProdutor);
-            threadProdutor.Name = "Thread Produtor";
-            threadProdutor.Start();
+            //Forma padrao
+            //ThreadStart tsProdutor = delegate { activeMQ.Produtor(); };
+            //Thread threadProdutor = new Thread(tsProdutor);
+            //threadProdutor.Name = "Thread Produtor";
+            //threadProdutor.Start();
+
+            //forma com lambda
+            new Thread(() =>
+            {
+                Thread.CurrentThread.Name = "Thread Produtor";
+                activeMQ.ProdutorFila();
+            }).Start();
         }
 
         public static void IniciaThreadConsumidor(ActiveMQ activeMQ)
         {
-            ThreadStart tsConsumidor = delegate { activeMQ.Consumidor(); };
-            Thread threadConsumidor = new Thread(tsConsumidor);
-            threadConsumidor.Name = "Thread Consumidor";
-            threadConsumidor.Start();
+            //ThreadStart tsConsumidor = delegate { activeMQ.Consumidor(); };
+            //Thread threadConsumidor = new Thread(tsConsumidor);
+            //threadConsumidor.Name = "Thread Consumidor";
+            //threadConsumidor.Start();
+
+            //forma com lambda
+            new Thread(() =>
+            {
+                Thread.CurrentThread.Name = "Thread Consumidor";
+                activeMQ.ConsumidorFila();
+            }).Start();
         }
     }
 }
