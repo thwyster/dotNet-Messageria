@@ -44,7 +44,7 @@ namespace ActiveMQProdutor
                 {
                     for (int i = 1; i < 101; i++)
                     {
-                        //Thread.Sleep(100);
+                        Thread.Sleep(100);
 
                         var mensagem = new Mensagem
                         {
@@ -75,7 +75,7 @@ namespace ActiveMQProdutor
                 {
                     for (int i = 1; i < 101; i++)
                     {
-                        //Thread.Sleep(100);
+                        Thread.Sleep(100);
 
                         var mensagem = new Mensagem
                         {

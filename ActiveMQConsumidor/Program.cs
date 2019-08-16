@@ -5,7 +5,7 @@ namespace ActiveMQConsumidor
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             try
             {
@@ -13,14 +13,16 @@ namespace ActiveMQConsumidor
                 activeMQ.InicializaAMQ();
                 while (Thread.CurrentThread.IsAlive)
                 {
-                    activeMQ.ConsumidorFila();
-                    //activeMQ.ConsumidorTopico();
+                    //activeMQ.ConsumidorFila();
+                    activeMQ.ConsumidorTopico();
                 }
 
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"ERRO ACTIVEMQ - {ex.Message}");
+                Console.WriteLine($"Reiniciando Serviço");
+                Main();
             }
         }
     }

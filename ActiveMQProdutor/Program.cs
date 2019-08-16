@@ -5,7 +5,7 @@ namespace ActiveMQProdutor
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             try
             {
@@ -13,13 +13,15 @@ namespace ActiveMQProdutor
                 activeMQ.InicializaAMQ();
                 while (Thread.CurrentThread.IsAlive)
                 {
-                    activeMQ.ProdutorFila();
-                    //activeMQ.ProdutorTopico();
+                    //activeMQ.ProdutorFila();
+                    activeMQ.ProdutorTopico();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                Console.WriteLine($"ERRO ACTIVEMQ - {ex.Message}");
+                Console.WriteLine($"Reiniciando Serviço" );
+                Main();
             }
         }
     }

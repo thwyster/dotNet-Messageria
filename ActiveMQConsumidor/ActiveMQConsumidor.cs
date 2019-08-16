@@ -92,8 +92,8 @@ namespace ActiveMQConsumidor
                             Console.WriteLine("Object Message é NULO");
                     }
                 }
-                if (mensagem == null)
-                    Console.WriteLine("Mensagem é nula");
+                //if (mensagem == null)
+                //    Console.WriteLine("Mensagem é nula");
             }
             catch (Exception ex)
             {
