@@ -1,12 +1,9 @@
 ﻿using ActiveMQ.Base;
 using Apache.NMS;
 using Apache.NMS.ActiveMQ;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ActiveMQProdutor
 {
@@ -51,7 +48,7 @@ namespace ActiveMQProdutor
                             Message = $"Mensagem {i}",
                         };
 
-                        var objectMessage = producer.CreateObjectMessage(mensagem);
+                        var objectMessage = producer.CreateObjectMessage(JsonConvert.SerializeObject(mensagem));
                         producer.Send(objectMessage);
 
                         Console.WriteLine($"{Thread.CurrentThread.Name} - Escrevendo na {FILA} => '{mensagem.Message}'");
@@ -82,7 +79,7 @@ namespace ActiveMQProdutor
                             Message = $"Mensagem {i}",
                         };
 
-                        var objectMessage = producer.CreateObjectMessage(mensagem);
+                        var objectMessage = producer.CreateObjectMessage(JsonConvert.SerializeObject(mensagem));
                         producer.DeliveryMode = MsgDeliveryMode.NonPersistent;
                         producer.Send(objectMessage);
 

@@ -1,6 +1,7 @@
 ﻿using ActiveMQ.Base;
 using Apache.NMS;
 using Apache.NMS.ActiveMQ;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,7 +51,7 @@ namespace ActiveMQConsumidor
                         var objectMessage = message as IObjectMessage;
                         if (objectMessage != null)
                         {
-                            mensagem = objectMessage.Body as Mensagem;
+                            mensagem = JsonConvert.DeserializeObject(objectMessage.Body.ToString()) as Mensagem;
                             if (mensagem != null)
                                 Console.WriteLine($"{Thread.CurrentThread.Name} - Lendo na {FILA} => '{mensagem.Message}'");
                         }
@@ -84,7 +85,7 @@ namespace ActiveMQConsumidor
                         var objectMessage = message as IObjectMessage;
                         if (objectMessage != null)
                         {
-                            mensagem = objectMessage.Body as Mensagem;
+                            mensagem = JsonConvert.DeserializeObject<Mensagem>(objectMessage.Body.ToString());
                             if (mensagem != null)
                                 Console.WriteLine($"{Thread.CurrentThread.Name} - Lendo no {TOPICO} => '{mensagem.Message}'");
                         }
